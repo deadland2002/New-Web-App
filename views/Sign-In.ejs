@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-In</title>
+    <link rel="stylesheet" href="/Css/Sign-In.css">
+    <script>
+        window.onload = function () {
+            document.getElementById('home-bg').style.display = "flex";
+            document.getElementById('preloader').style.display = 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="preloader-wrapper">
+            <img src="/img/preloader2.gif" alt="" width="100%">
+        </div>
+        <span>Loading , Please Wait</span>
+    </div>
+    <div class="home-bg" id="home-bg">
+        <div class="left-main">
+        </div>
+
+        <div class="right-main">
+            <div class="wrapper-right">
+                <div class="top">
+                    Welcome to Mantra
+                    <br>
+                    Community
+                    <br>
+                    <br>
+                </div>
+
+                <div>
+                    <form id="form1" class="bottom">
+                        <div>
+                            <span>Email</span>
+                            <input type="email" id="email">
+                            <span id="invalid-email" class="invalid-cred"></span>
+                        </div>
+    
+                        <div>
+                            <span>Password</span>
+                            <input type="password" id="password">
+                            <span id="invalid-password" class="invalid-cred"></span>
+                        </div>
+                        <div>
+                            <button id="submit-btn">Log In</button>
+                            <span>Don't have an account? <a href="/Sign-Up">Sign Up</a></span>
+                            <span id="not-verified" style="display: none;">Account not verified? <a href="/VerifyAccount">Verify</a></span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/JS/Sign-In.js"></script>
+    <script>
+        form1.addEventListener('submit', sendform);
+
+        const pre_filled_email = localStorage.getItem('email');
+        if(pre_filled_email != null){
+            document.getElementById('email').value = pre_filled_email; 
+        }
+
+        async function sendform() {
+
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const span_email = document.getElementById('invalid-email');
+            const span_password = document.getElementById('invalid-password');
+            const submit = document.getElementById('submit-btn');
+
+
+            if (password.length < 5) {
+                span_password.innerText = "Password must be greater than 5 characters";
+                return;
+            }
+            else if (containsSpecialChars(password) == false) {
+                span_password.innerText = "Password must contain a special character";
+                return;
+            }
+            else if (containsNumbers(password) == false) {
+                span_password.innerText = "Password must contain a number";
+                return;
+            }
+            else {
+                span_password.innerText = "";
+            }
+
+
+            var obj;
+
+            const result = await fetch('/api/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            }).then(res => res.json()).then(data => { obj = data; }).catch(err => console.log(err));
+
+            if (obj.status === "OK") {
+                span_email.innerText = "";
+                span_password.innerText = "";
+                submit.style.backgroundColor = "rgba(0, 255, 30, 0.6)";
+                submit.innerText = "Logged In"
+                localStorage.setItem('email',email);
+                location.href = "/Community/"+ obj.data;
+            } else if (obj.data === "404") {
+                span_email.innerText = "Email Incorrect";
+                span_password.innerText = "Password Incorrect";
+
+            } else if(obj.data === "900"){
+                span_password.innerText = "Password Incorrect";
+                span_email.innerText = "Email Incorrect";
+
+            }else if(obj.data === "1000"){
+                span_password.innerText = "User not verified";
+                span_email.innerText = "User not verified";
+                document.getElementById('not-verified').style.display = "block";
+            }else{
+                span_email.innerText = "";
+                span_password.innerText = "";
+                alert(obj.data);
+            }
+        }
+    </script>
+</body>
+
+</html>

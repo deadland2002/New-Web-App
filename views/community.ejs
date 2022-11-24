@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+    <link rel="stylesheet" href="/Css/Community.css">
+
+    <script>
+        window.onload = function () {
+            document.getElementById('home-bg').style.display = "flex";
+            document.getElementById('preloader').style.display = 'none';
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="preloader" id="preloader">
+        <div class="preloader-wrapper">
+            <img src="/img/preloader2.gif" alt="" width="100%">
+        </div>
+        <span>Loading , Please Wait</span>
+    </div>
+
+    <div class="home-bg" id="home-bg">
+        <div class="wrapper">
+            <div class="nav-top">
+                <ul class="left-nav-ul">
+                    <li>MANTRA</li>
+                </ul>
+
+                <input type="text" value="<%=user_email%>" style="display: none;" id="email">
+                
+                <ul class="right-nav-ul">
+                    <li><img src="/img/user1.png" alt="" width="20px" class="profile"></li>
+                    <li> <span id="username"> <%= name %> </span> </li>
+                    <li><img src="/img/currency.png" alt="" width="20px" class="coins"> </li>
+                    <li> <span id="coins"> <%= coins %> </span></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+
+
+
+                <% for (var i in data){ %>
+                    <div class="cards" id="<%= i %>">
+                        <div class="li-heading">
+                            <span><%= i %>></span>
+                            <br>
+                            <br>
+                        </div>
+                        <ul>
+                            <% for (var j in data[i]) { %>
+                                <% if (data[i][j][0]===true){ %>
+                                    <li>
+                                        <div class="li-top">
+                                            <%= data[i][j][2] %>
+                                        </div>
+                                        <div class="li-bottom-unlocked">
+                                            UNLOCKED
+                                        </div>
+                                    </li>
+                                <% } else { %>
+                                        <li>
+                                            <div class="li-top">
+                                                <%= data[i][j][2] %>
+                                            </div>
+                                            <div class="li-bottom-locked">
+                                                <img src="/img/lock.png" alt="" width="20px" class="lock-png" onclick=" purchase('<%= i %>','<%= j %>','<%= data[i][j][1] %>') ">
+                                                <div>
+                                                    <img src="/img/currency.png" alt="" width="20px" class="coins">
+                                                    <%= data[i][j][1] %>
+                                                </div>
+                                            </div>
+                                        </li>
+                                <% } %>
+                            <% } %>
+                        </ul>
+                    </div>
+                <% } %>
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="success" id="success">
+        <div class="success-msg">
+            <div class="top">
+                <h2 id="result-purchase">
+                    
+                </h2>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/JS/Community.js">
+        
+    </script>
+</body>
+
+</html>

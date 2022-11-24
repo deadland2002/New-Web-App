@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/Css/Home.css">
+    <script>
+        window.onload = function(){
+            document.getElementById('home-bg').style.display = "flex";
+            document.getElementById('preloader').style.display = 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="preloader-wrapper">
+            <img src="/img/preloader2.gif" alt="" width="100%">
+        </div>
+        <span>Loading , Please Wait</span>
+    </div>
+    <div class="home-bg" id="home-bg">
+        <div class="wrapper">
+            <div class="top-container">
+                <div>
+                    MANTRA
+                </div>
+                <div>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima quasi fuga maiores. Ea, optio!
+                </div>
+            </div>
+            <br>
+            <div class="bottom-container">
+                <div>
+                    <button onclick="location.href='/Sign-Up'">Sign Up</button>
+                </div>
+                <div>
+                    <button onclick="location.href='/Sign-In'">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/JS/Home.js"></script>
+</body>
+
+</html>

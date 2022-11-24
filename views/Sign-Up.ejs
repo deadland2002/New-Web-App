@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up</title>
+    <link rel="stylesheet" href="/Css/Sign-Up.css">
+    <script>
+        window.onload = function () {
+            document.getElementById('home-bg').style.display = "flex";
+            document.getElementById('preloader').style.display = 'none';
+        }
+    </script>
+</head>
+
+<body>
+    <div class="preloader" id="preloader">
+        <div class="preloader-wrapper">
+            <img src="/img/preloader2.gif" alt="" width="100%">
+        </div>
+        <span>Loading , Please Wait</span>
+    </div>
+
+
+    <div class="home-bg" id="home-bg">
+        <div class="left-main">
+        </div>
+
+        <div class="right-main">
+            <div class="wrapper-right">
+                <div class="top">
+                    Welcome to Mantra
+                    <br>
+                    Community
+                    <br>
+                    <br>
+                </div>
+
+                <div id="form">
+                    <form id="form" class="bottom">
+                        <div>
+                            <span>Full Name</span>
+                            <input type="text" id="fullname" required autofocus>
+                            <span id="invalid-user" class="invalid-cred"></span>
+                        </div>
+
+                        <div>
+                            <span>Email</span>
+                            <input type="email" id="email" required>
+                            <span id="invalid-email" class="invalid-cred"></span>
+                        </div>
+
+                        <div>
+                            <span>Password</span>
+                            <input type="password" id="password" required>
+                            <span id="invalid-password" class="invalid-cred"></span>
+                        </div>
+                        <div>
+                            <button type="submit">Create Account</button>
+                            <span>Already have an account? <a href="/Sign-In">Log in</a></span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="subscribed" id="sub">
+        <div class="card-box">
+            <div class="wrapper-sub" id="card">
+
+                <div class="container-sub">
+                    <div class="image-sub">
+                        <img src="/img/currency.png" width="100%" height="100%"> 100
+                    </div>
+                    <div>
+                        CONGRATULATIONS
+                    </div>
+                    <div>
+                        You earned 100 Mantra Coins
+
+                    </div>
+                    <div>
+                        Unlock the mantra cards with these coins and start Learning
+                    </div>
+                </div>
+
+                <div class="control">
+                    <span onclick="change(-1)" class="prev"> Prev</span>
+                    <span onclick="change(1)" class="next"> Next</span>
+                </div>
+
+            </div>
+
+            <div class="wrapper-sub" id="card">
+                <div class="control">
+                    <span onclick="change(-1)" class="prev"> Prev</span>
+                    <span onclick="change(1)" class="next"> Next</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="popper-right">
+            <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_fnjH1K.json" background="transparent"
+                speed="1" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
+        </div>
+
+        <div class="popper-left">
+            <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_fnjH1K.json" background="transparent"
+                speed="1" style="width: 100%; height: 100%;" loop autoplay></lottie-player>
+        </div>
+    </div>
+    <script src="/JS/Sign-Up.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script>
+        
+        form1.addEventListener('submit', sendform);
+
+        async function sendform() {
+
+            event.preventDefault();
+
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const span_user = document.getElementById('invalid-user');
+            const span_email = document.getElementById('invalid-email');
+            const span_password = document.getElementById('invalid-password');
+            const otp_div = document.getElementById('OTP-POPUP');
+
+
+            if (password.length < 5) {
+                span_password.innerText = "Password must be greater than 5 characters";
+                return;
+            }
+            else if (containsSpecialChars(password)==false) {
+                span_password.innerText = "Password must contain a special character";
+                return;
+            }
+            else if (containsNumbers(password)==false){
+                span_password.innerText = "Password must contain a number";
+                return;
+            }
+            else{
+                span_password.innerText = "";
+            }
+
+
+            var obj;
+
+            const result = await fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fullname,
+                    email,
+                    password
+                })
+            }).then(res => res.json()).then(data => { obj = data; }).catch(err => console.log(err));
+
+            if (obj.status === "OK") {
+                document.getElementById('fullname').value = "";
+                document.getElementById('email').value = "";
+                document.getElementById('password').value = "";
+                localStorage.setItem('email',email);
+                localStorage.setItem('fullname',fullname);
+                show();
+            } else if (obj.data === "1400") {
+                span_email.innerText = "Email Exists"
+            }
+            else{
+                alert(obj.data);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,234 @@
+@font-face {
+    font-family: Poppins;
+    src: url('/Fonts/Poppins/Poppins-Regular.ttf');
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Poppins;
+    color: rgb(255, 255, 255);
+}
+
+:root{
+    --buttom-bg : #1E1E1E;
+    --nav-color:rgba(14, 13, 15, 0.866);
+    --coin-bg:rgb(255, 140, 0);
+    --purple:#5A01A0;
+}
+
+ul{
+    list-style-type: none;
+    text-decoration: none;
+}
+
+input:focus{
+    outline: none;
+}
+
+input{
+    outline: none;
+}
+
+.preloader{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.preloader-wrapper{
+    width: 400px;
+    margin: auto auto;
+}
+
+.preloader span{
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 40px;
+    font-size: 34px;
+}
+
+.home-bg{
+    width: 100%;
+    min-height: 100vh;
+    display: none;
+    background-color: rgba(0, 0, 0,.8);
+}
+
+.nav-top{
+    background-color: var(--nav-color);
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding: 5px 10px;
+    backdrop-filter: blur(10px);
+}
+
+.nav-top ul li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile{
+    background-color: aliceblue;
+    padding: 5px 5px;
+    border-radius: 50%;
+}
+
+.right-nav-ul{
+    display: flex;
+    list-style-type: none;
+    margin: 2px 30px;
+    align-items: center;
+    gap: 10px;
+}
+
+.left-nav-ul{
+    display: flex;
+    list-style-type: none;
+    margin: 2px 10px;
+    align-items: center;
+    gap: 10px;
+}
+
+.coins{
+    background-color: var(--coin-bg);
+    padding: 5px 5px;
+    border-radius: 50%;
+}
+
+.main-content {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.main-content ul{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 60px;
+}
+
+.main-content ul li{
+    width: 250px;
+    height: 200px;
+    background-color: rgba(34, 34, 34, 0.658);
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.wrapper{
+    width: 100%;
+}
+
+.cards{
+    width: 80%;
+    margin: auto auto;
+    padding: 0px 60px;
+    padding-top: 30px;
+    padding-bottom: 50px;
+    background-color: rgba(0, 0, 0, .4);
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px rgba(255, 255, 255, 0.674);
+}
+
+.li-bottom-locked{
+    max-width: 250px;
+    background-color: var(--purple);
+    height: 50px;
+    border-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.li-bottom-locked div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.li-top{
+    min-width: 80%;
+    max-width: 100%;
+    max-height: 140px;
+    overflow: hidden;
+    padding: 10px 20px;
+}
+
+.li-bottom-unlocked{
+    max-width: 250px;
+    background-color: rgba(0, 255, 51, 0.6);
+    height: 50px;
+    border-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 10px;
+    font-weight: bolder;
+}
+
+.li-heading{
+    letter-spacing: 2px;
+    font-size: 24px;
+}
+
+.lock-png{
+    background-color: aliceblue;
+    padding: 5px 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.success{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(34, 34, 34, 0.812);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.success-msg{
+    width: 500px;
+    height: 400px;
+    background-color: #5A01A0;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.success-msg h2{
+    font-size: 38px;
+}
+
+.success-msg span{
+    font-size: 24px;
+}
+
+.test{
+    color: rgb(255, 255, 255);
+}
