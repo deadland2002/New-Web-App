@@ -57,18 +57,29 @@
                         <ul>
                             <% for (var j in data[i]) { %>
                                 <% if (data[i][j][0]===true){ %>
-                                    <li>
-                                        <div class="li-top">
-                                            <%= data[i][j][2] %>
-                                        </div>
-                                        <div class="li-bottom-unlocked">
-                                            UNLOCKED
+                                    <li class="flip-card">
+                                        <div class="flip-card-inner">
+                                            <div class="flip-card-front">
+                                                <div class="li-top">
+                                                    <%= data[i][j][3] %>
+                                                </div>
+                                                <div class="li-bottom-unlocked" onclick="show()">
+                                                    UNLOCKED
+                                                </div>
+                                            </div>
+                                            <div class="flip-card-back">
+                                                <div class="flip-card">
+                                                    <div class="flip-back-content">
+                                                        <%= data[i][j][2] %>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </li>
                                 <% } else { %>
                                         <li>
                                             <div class="li-top">
-                                                <%= data[i][j][2] %>
+                                                <%= data[i][j][3] %>
                                             </div>
                                             <div class="li-bottom-locked">
                                                 <img src="/img/lock.png" alt="" width="20px" class="lock-png" onclick=" purchase('<%= i %>','<%= j %>','<%= data[i][j][1] %>') ">

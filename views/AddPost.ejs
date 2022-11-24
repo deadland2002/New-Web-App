@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Post</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .bg{
+            width: 100%;
+            height: 100vh;
+            background-color: rgb(34, 34, 34);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .box{
+            width: 500px;
+            height: 700px;
+            background-color: rgb(67, 14, 92);
+            border: 0;
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .inp{
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            width: 400px;
+            font-size: 20px;
+        }
+
+        .inp input{
+            height: 16px;
+            padding: 5px 10px;
+            background-color: transparent;
+            border: 0;
+            outline: none;
+            border-bottom: 2px solid white;
+            font-size: 20px;
+            color: whitesmoke;
+        }
+
+        .inp textarea{
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+        
+        .top{
+            text-align: center;
+            font-size: 34px;
+        }
+
+        .btn button{
+            width: 300px;
+            height: 50px;
+            font-size: 16px;
+            border: 0;
+            border-radius: 30px;
+            background-color: rgb(214, 153, 255);
+            cursor: pointer;
+        }
+
+        .inp select{
+            height: 40px;
+            background-color: transparent;
+            padding: 5px 10px;
+            font-size: 20px;
+            color: white;
+        }
+        .inp option{
+            background-color: rgb(65, 30, 97);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg">
+        <form class="box" id="form">
+            <div class="top">
+                <h2>Add Post</h2>
+            </div>
+            <div class="inp">
+                <span> Category </span>
+                <select name="Category" id="Category">
+                    <option value="Marketing">Marketing</option>
+                    <option value="Frontend">Frontend</option>
+                    <option value="Backend">Backend</option>
+                    <option value="Full Stack">Full Stack</option>
+                </select>
+            </div>
+            <div class="inp">
+                <span> Title </span>
+                <input type="text" name="Title" id="title" required>
+            </div>
+            <div class="inp">
+                <span> Content </span>
+                <textarea name="content" id="content" cols="30" rows="10" required></textarea>
+            </div>
+            <div class="inp">
+                <span> coin </span>
+                <input type="number" name="Title" id="coin" required>
+            </div>
+            <div class="inp">
+                <span> Admin Pass </span>
+                <input type="text" name="Title" id="adminpass" required>
+            </div>
+            <div class="btn">
+                <button>Submit</button>
+            </div>
+        </form>
+    </div>
+    
+
+    <script>
+        const form = document.getElementById('form');
+        form.addEventListener('submit',sendform);
+
+        async function sendform(){
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const coin = document.getElementById('coin').value;
+            const category = document.getElementById('Category').value;
+            const adminpass = document.getElementById('adminpass').value;
+
+            var obj;
+
+            const result = await fetch("/api/addpost",{
+                method : 'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+                body: JSON.stringify({
+                    category,
+                    title,
+                    content,
+                    coin,
+                    adminpass
+                })
+            }).then(res => res.json()).then(data=>{obj = data;});
+
+            if(obj.status ==="OK"){
+                alert("Submitted successfully");
+            }else{
+                alert(obj.data);
+            }
+        };
+    </script>
+</body>
+</html>

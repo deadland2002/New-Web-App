@@ -28,17 +28,19 @@ const JWTSEC = process.env.JWT_SECRET
 mongoose.connect(DatabaseUrl).then(() => { console.log("MongoDB connected") });
 
 
+
+
+
 app.use(express.static("Public"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs")
 
 
-
-
 app.get("/", function (req, res) {
     res.render("home")
 })
+
 
 
 
@@ -79,21 +81,38 @@ app.get("/Community/:token", async function (req, res) {
         console.log("ERROR");
     }
     if (vals && user_data) {
-        var arr = ComHelper.testdata();
-
+        var arr = {};
         var user = {};
+        const result = await ALLPOST.find({});
 
+        result.forEach((single) => {
+            var category = single.category
+            var data = single.data;
+            data.forEach((vals) => {
+                var title = vals.title;
+                var content = vals.content;
+                var cost = vals.cost;
+                var id = vals._id;
+                arr = ComHelper.PushPostData(arr,category,id,cost,content,title);
+                
+            })
+        })
+
+        
         const user_name = user_data.name;
-        const coin = helper.formatter(user_data.coins,1);
+        const coin = helper.formatter(user_data.coins, 1);
         const subs = user_data.subs;
         const email = vals.email;
+        
         
         subs.forEach(async function (single) {
             user = ComHelper.PushUserData(user, single.category, single.id);
         });
+        
         arr = ComHelper.ValidateData(user, arr);
-
-        return res.render("Community", { data: arr , name: user_name , coins:coin , user_email : email});
+        
+        console.log(arr);
+        return res.render("Community", { data: arr, name: user_name, coins: coin, user_email: email });
     }
     res.send("Opssssss look like the resource you are looking for is not here");
 
@@ -117,14 +136,17 @@ app.get("/VerifyAccount", async function (req, res) {
 
 
 
+app.get("/AddPost", async function (req, res) {
+    res.render('AddPost');
+})
+
+
+
+
+
+
 app.get("/test", async function (req, res) {
-    var arr = community.testdata();
-
-    for (var i in arr){
-        console.log(i);
-    }
-
-    res.send("OK")
+    res.send('OK');
 })
 
 
@@ -134,8 +156,29 @@ app.get("/test", async function (req, res) {
 
 
 
+app.post("/api/addpost", async function (req, res) {
+    // console.log(req.body);
+    const { category, title, content, coin, adminpass } = req.body;
 
+    if (adminpass === process.env.ADMINPASS) {
+        try {
+            const result = await ALLPOST.findOne({ category });
 
+            if (result) {
+                const res = await ALLPOST.updateOne({ category: category, $push: { data: { title: title, content: content, cost: coin } } });
+            } else {
+                const res = await ALLPOST.create({ category: category, data: { title: title, content: content, cost: coin } });
+            }
+        } catch (err) {
+            console.log(err);
+            return res.json({ status: "err", data: "error while processing" })
+        }
+    } else {
+        return res.json({ status: "err", data: "invalid password" })
+    }
+
+    res.json({ status: "OK" });
+});
 
 
 
@@ -145,29 +188,29 @@ app.get("/test", async function (req, res) {
 
 app.post("/api/addid", async function (req, res) {
 
-    const {email , category , id ,cost} = req.body;
+    const { email, category, id, cost } = req.body;
     const value = cost * -1;
-    try{
-        var user = await USER.findOne({email});
-        
-        if(user.coins >= cost){
+    try {
+        var user = await USER.findOne({ email });
+
+        if (user.coins >= cost) {
             const result = await USER.updateOne({ email },
                 {
                     $push:
                     {
-                        subs: { category , id}
+                        subs: { category, id }
                     },
-                    $inc:{coins:value}
+                    $inc: { coins: value }
                 }).lean();
         }
-        else{
-            return res.json({status:'error' , data:"1800"});
+        else {
+            return res.json({ status: 'error', data: "1800" });
         }
-    }catch{
-        return res.json({status:'error' , data:"server error"});
+    } catch {
+        return res.json({ status: 'error', data: "server error" });
     }
 
-    res.json({status:'OK'});
+    res.json({ status: 'OK' });
 })
 
 
@@ -241,7 +284,7 @@ app.post("/api/signup", async function (req, res) {
 
 
 app.post("/api/verifyotp", async function (req, res) {
-    const { email, password, Otp , newpass} = req.body;
+    const { email, password, Otp, newpass } = req.body;
     // console.log(req.body);
 
     var entered_otp = 0;
@@ -256,13 +299,13 @@ app.post("/api/verifyotp", async function (req, res) {
         const result = await OTP.findOne({ email });
         if (result.otp == entered_otp) {
 
-            if(newpass){
+            if (newpass) {
 
-                const hashedpass = await bcrypt.hash(newpass,salts);
+                const hashedpass = await bcrypt.hash(newpass, salts);
 
                 const us = await USER.updateOne({ email }, { $set: { password: hashedpass } });
 
-            }else{
+            } else {
 
                 const us = await USER.updateOne({ email }, { $set: { verified: true } });
 
@@ -343,6 +386,12 @@ app.post("/api/signin", async function (req, res) {
     }
 
     res.json({ status: "error", data: "Server Error" });
+})
+
+
+
+app.get('*', (req, res) => {
+    res.redirect('/')
 })
 
 

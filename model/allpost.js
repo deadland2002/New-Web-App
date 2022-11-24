@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
-    category:{type: String,"default" : "",required:true},
-    content: {type: String,"default" : ""},
-    cost: {type : Number , "default" : 0 }
+    category:{type: String , required:true},
+    data: [{
+        title : {type: String},
+        content : {type: String},
+        cost : {type: Number},
+    }]
 }, { collection: 'Posts' })
 
 const model = mongoose.model('PostSchema', PostSchema);
