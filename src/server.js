@@ -112,7 +112,7 @@ app.get("/Community/:token", async function (req, res) {
         arr = ComHelper.ValidateData(user, arr);
         
         console.log(arr);
-        return res.render("Community", { data: arr, name: user_name, coins: coin, user_email: email });
+        return res.render("community", { data: arr, name: user_name, coins: coin, user_email: email });
     }
     res.send("Opssssss look like the resource you are looking for is not here");
 
