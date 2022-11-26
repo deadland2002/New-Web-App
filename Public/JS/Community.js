@@ -76,12 +76,52 @@ function addpost() {
 
 }
 
-function closeaddpost(){
+function closeaddpost() {
     const post_div = document.getElementById('addpostdiv');
     const home_div = document.getElementById('home-bg');
 
     post_div.style.display = "none";
     home_div.style.maxHeight = "100%";
+}
 
+
+
+function lock() {
+    var xPos = window.scrollX;
+    var yPos = window.scrollY;
     
+    console.log(xPos,yPos);
+
+    window.onscroll = () => {
+        window.scroll(xPos, yPos);
+    };
+}
+
+
+function unlock() {
+    window.onscroll = "";
+}
+
+
+
+function showpost(id) {
+    var xPos = window.scrollX;
+    var yPos = window.scrollY;
+
+    const post_div = document.getElementById(id);
+    const home_bg = document.getElementById('home-bg');
+    
+    post_div.style.display = "flex";
+    post_div.style.top = yPos +"px";
+    post_div.style.left = xPos +"px";
+    
+    lock();
+}
+
+function closediv(id) {
+    const post_div = document.getElementById(id);
+    const home_bg = document.getElementById('home-bg');
+    home_bg.style.maxHeight = "100%";
+    post_div.style.display = "none";
+    unlock();
 }

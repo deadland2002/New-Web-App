@@ -51,7 +51,7 @@
                 </div>
 
                 <ul class="right-nav-ul">
-                    <li><img src="/img/user1.png" alt="" width="20px" class="profile"></li>
+                    <li ><img src="/img/user1.png" alt="" width="20px" class="profile" id="account" onclick="openaccount()" ></li>
                     <li> <span id="username">
                             <%= name %>
                         </span> </li>
@@ -78,24 +78,32 @@
                         <ul>
                             <% for (var j in data[i]) { %>
                                 <% if (data[i][j][0]===true){ %>
-                                    <li class="flip-card">
-                                        <div class="flip-card-inner">
-                                            <div class="flip-card-front">
+                                    <li class="">
+                                        
                                                 <div class="li-top">
                                                     <%= data[i][j][3] %>
                                                 </div>
-                                                <div class="li-bottom-unlocked" onclick="show()">
+                                                <div class="li-bottom-unlocked" onclick="showpost('<%=j%>')">
                                                     UNLOCKED
                                                 </div>
-                                            </div>
-                                            <div class="flip-card-back">
-                                                <div class="flip-card">
-                                                    <div class="flip-back-content">
-                                                        <%= data[i][j][2] %>
+                                            
+                                            <div class="content" id="<%=j%>">
+                                                <button onclick="closediv('<%=j%>')" class="post_close">x</button>
+                                                <div class="content-sub">
+                                                    <div class="">
+                                                        <span>Title : </span>
+                                                        <br>
+                                                        <span><%= data[i][j][3] %></span>
+                                                    </div>
+                                                    <div class="">
+                                                        <br>
+                                                        <span>Ans :</span>
+                                                        <br>
+                                                        <span> <%= data[i][j][2] %> </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        
                                     </li>
                                     <% } else { %>
                                         <li>

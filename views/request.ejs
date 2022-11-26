@@ -66,16 +66,16 @@
                 <% for (var j in data[i]){ %>
                     <li class="card">
                         <div>
-                            <span>Heading :</span>
-                            <span><%= i %></span>
-                        </div>
-                        <div>
-                            <span>Title :</span>
-                            <span><%= data[i][j][3] %> </span>
+                            <span>Category :</span>
+                            <span id="category"><%= i %></span>
                         </div>
                         <div>
                             <span>Email :</span>
                             <span><%= data[i][j][4] %> </span>
+                        </div>
+                        <div>
+                            <span>Title :</span>
+                            <span><%= data[i][j][3] %> </span>
                         </div>
                         <div>
                             <span>Content :</span>
@@ -90,8 +90,8 @@
                             <span><%= j %></span>
                         </div>
                         <div class="control">
-                            <button onclick="accept('<%= j %>','<%= i %>','<%= data[i][j][3] %>','<%= data[i][j][2] %>','<%= data[i][j][1] %>','<%= data[i][j][4] %>',true)">Accept</button>
-                            <button onclick="accept('<%= j %>','<%= i %>','<%= data[i][j][3] %>','<%= data[i][j][2] %>','<%= data[i][j][1] %>','<%= data[i][j][4] %>',false)">Reject</button>
+                            <button onclick="accept('<%= i %>','<%= j %>',true)">Accept</button>
+                            <button onclick="accept('<%= i %>','<%= j %>',false)">Reject</button>
                         </div>
                     </li>
                 <% } %>

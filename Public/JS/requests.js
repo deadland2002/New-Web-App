@@ -1,4 +1,4 @@
-async function accept(id, category, title, content, coin, email, opr) {
+async function accept(category,id,opr) {
 
     var obj;
 
@@ -8,12 +8,8 @@ async function accept(id, category, title, content, coin, email, opr) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            id,
             category,
-            title,
-            content,
-            coin,
-            email,
+            id,
             opr
         })
     }).then(res => res.json()).then(data => { obj = data; });

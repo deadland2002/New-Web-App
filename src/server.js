@@ -114,7 +114,7 @@ app.get("/Community/:token", async function (req, res) {
 
         arr = ComHelper.ValidateData(user, arr);
 
-
+        // console.log(arr);
         const tokenrefer = await JWT.sign(email, JWTSEC);
         return res.render("community", { data: arr, name: user_name, coins: coin, user_email: email, refercode: tokenrefer });
     }
@@ -186,9 +186,10 @@ app.get("/AddPost", async function (req, res) {
 
 app.get("/test", async function (req, res) {
 
-    const requests = await ALLREQUEST.find().lean();
-
-    console.log(requests);
+    const requests = await ALLREQUEST.findOne({category:'Marketing'}).lean();
+    const data = requests.data;
+    
+    console.log(data[0]['_id']);
 
     res.send('OK');
 })
@@ -202,7 +203,15 @@ app.get("/test", async function (req, res) {
 
 app.post("/api/adminpost", async function (req, res) {
     // console.log(req.body);
-    const { id, category, title, content, coin, email ,opr } = req.body;
+
+
+    const { category, id , opr} = req.body;
+    const requests = await ALLREQUEST.findOne( {category,data:{$elemMatch:{_id:id}}} ,{'data.$':1} ).lean();
+    const data = requests.data;
+    const email = data[0]['email'];
+    const title = data[0]['title'];
+    const content = data[0]['content'];
+    const coin = data[0]['cost'];
 
     if (opr) {
         try {
