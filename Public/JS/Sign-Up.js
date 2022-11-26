@@ -2,15 +2,15 @@ var index = 0;
 var wid = 500;
 
 const cards = document.querySelectorAll("#card");
-const Prev = document.getElementsByClassName("prev");
-const next = document.getElementsByClassName("next");
-const form1 = document.getElementById('form');
+// const Prev = document.getElementsByClassName("prev");
+// const next = document.getElementsByClassName("next");
 
-Prev[0].style.opacity = .5;
-Prev[0].style.pointerEvents = 'none';
 
-next[next.length - 1].style.opacity = .5;
-next[next.length - 1].pointerEvents = 'none';
+// Prev[0].style.opacity = .5;
+// Prev[0].style.pointerEvents = 'none';
+
+// next[next.length - 1].style.opacity = .5;
+// next[next.length - 1].pointerEvents = 'none';
 
 function change(val) {
     const cards = document.querySelectorAll("#card");
@@ -38,8 +38,8 @@ function change(val) {
 }
 
 function show() {
-    document.getElementById('home-bg').style.display = "none";
     document.getElementById('sub').style.display = "flex";
+    setTimeout(function(){location.href = "/VerifyAccount"},4000);
 }
 
 function containsSpecialChars(str) {

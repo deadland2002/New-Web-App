@@ -271,6 +271,7 @@ app.post("/api/signup", async function (req, res) {
 
 
 
+
     try {
         var result = await USER.findOne({ email: email }).lean();
         const hashedpassword = await bcrypt.hash(password, salts);
@@ -284,7 +285,7 @@ app.post("/api/signup", async function (req, res) {
             });
             if(referer){
                 try{
-                    var ref = await USER.updateOne({email:referer},{$inc:{coins:20}}).lean();
+                    var ref = await USER.updateOne({email:referer},{$inc:{coins:20,refers:1}}).lean();
                 }catch{
                     // console.log(referer);
                 }

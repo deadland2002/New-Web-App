@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     verified: { type: Boolean, required: true },
     coins: { type: Number, "default": 0 },
+    refers: { type: Number, "default": 0 },
     subs: [
         {
             category : { type: String},

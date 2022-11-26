@@ -67,6 +67,7 @@ module.exports = {
         let info = await transporter.sendMail(mailoption, async function (err, data) {
             if (err) {
                 console.log("send mail err");
+                console.log(err);
             }
             else {
                 // console.log("mail sent");
