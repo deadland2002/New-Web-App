@@ -230,7 +230,7 @@ input{
 }
 
 .test{
-    color: rgb(255, 255, 255);
+    color: rgb(34, 168, 0);
 }
 
 .flip-card{
@@ -315,3 +315,11 @@ input{
     color: white;
     transform: rotateY(180deg);
   }
+
+  .copy  , .btn{
+    padding: 2px 5px;
+    border-radius: 20px;
+    background-color: #5A01A0;
+  }
+
+  

@@ -57,6 +57,12 @@
                             <input type="password" id="password" required>
                             <span id="invalid-password" class="invalid-cred"></span>
                         </div>
+                        
+                        <div>
+                            <span>Got a Referal Code</span>
+                            <input type="text" id="referer">
+                            <span id="invalid-referal" class="invalid-cre"></span>
+                        </div>
                         <div>
                             <button type="submit">Create Account</button>
                             <span>Already have an account? <a href="/Sign-In">Log in</a></span>
@@ -97,6 +103,12 @@
             </div>
 
             <div class="wrapper-sub" id="card">
+                <div class="container-sub">
+                    <div>
+                        You will be redirected
+                    </div>
+                </div>
+
                 <div class="control">
                     <span onclick="change(-1)" class="prev"> Prev</span>
                     <span onclick="change(1)" class="next"> Next</span>
@@ -117,7 +129,6 @@
     <script src="/JS/Sign-Up.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script>
-        
         form1.addEventListener('submit', sendform);
 
         async function sendform() {
@@ -127,8 +138,10 @@
             const fullname = document.getElementById('fullname').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const referer = document.getElementById('referer').value;
 
             const span_user = document.getElementById('invalid-user');
+            const span_refer = document.getElementById('invalid-referal');
             const span_email = document.getElementById('invalid-email');
             const span_password = document.getElementById('invalid-password');
             const otp_div = document.getElementById('OTP-POPUP');
@@ -161,7 +174,8 @@
                 body: JSON.stringify({
                     fullname,
                     email,
-                    password
+                    password,
+                    referer
                 })
             }).then(res => res.json()).then(data => { obj = data; }).catch(err => console.log(err));
 

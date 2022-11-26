@@ -63,6 +63,7 @@
 
     <script src="/JS/Sign-In.js"></script>
     <script>
+        document.getElementById('email').value = localStorage.getItem('email');
         form1.addEventListener('submit', sendform);
 
         const pre_filled_email = localStorage.getItem('email');
@@ -118,6 +119,7 @@
                 submit.style.backgroundColor = "rgba(0, 255, 30, 0.6)";
                 submit.innerText = "Logged In"
                 localStorage.setItem('email',email);
+                localStorage.setItem('token',obj.data);
                 location.href = "/Community/"+ obj.data;
             } else if (obj.data === "404") {
                 span_email.innerText = "Email Incorrect";

@@ -115,16 +115,16 @@ input{
     box-shadow: 0px 0px 30px rgb(0, 0, 0);
 }
 
-.bottom div:nth-child(4){
+.bottom div:nth-child(5){
     margin-top: 20px;
     gap: 10px;
 }
 
-.bottom div:nth-child(4) span{
+.bottom div:nth-child(5) span{
     font-size: 12px;
 }
 
-.bottom div:nth-child(4) span a{
+.bottom div:nth-child(5) span a{
     color: #5A01A0;
     font-weight: bolder;
 }

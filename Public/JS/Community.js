@@ -52,3 +52,15 @@ async function purchase(category, id, cost) {
         location.reload();
     }, 3000);
 }
+
+function CopyRefer(code){
+    navigator.clipboard.writeText(code);
+    const btn_cpy = document.getElementById('copy');
+    btn_cpy.innerText = "Copied";
+    btn_cpy.style.backgroundColor = "rgb(34, 168, 0)";
+}
+
+function logout(){
+    localStorage.removeItem('token');
+    location.href = "/";
+}

@@ -97,6 +97,7 @@
                     <option value="Frontend">Frontend</option>
                     <option value="Backend">Backend</option>
                     <option value="Full Stack">Full Stack</option>
+                    <option value="AI">AI</option>
                 </select>
             </div>
             <div class="inp">
@@ -152,6 +153,7 @@
 
             if(obj.status ==="OK"){
                 alert("Submitted successfully");
+                location.reload();
             }else{
                 alert(obj.data);
             }

@@ -34,6 +34,14 @@
                 </ul>
 
                 <input type="text" value="<%=user_email%>" style="display: none;" id="email">
+                <div>
+                    <span>Refer and earn 20 coins : </span>
+                    <button onclick="CopyRefer('<%= refercode %>')" class="copy btn" id="copy">Copy</button>
+                </div>
+
+                <div>
+                    <button class="btn" id="logout" onclick="logout()">Logout</button>
+                </div>
                 
                 <ul class="right-nav-ul">
                     <li><img src="/img/user1.png" alt="" width="20px" class="profile"></li>
@@ -50,7 +58,7 @@
                 <% for (var i in data){ %>
                     <div class="cards" id="<%= i %>">
                         <div class="li-heading">
-                            <span><%= i %>></span>
+                            <span><%= i %></span>
                             <br>
                             <br>
                         </div>
