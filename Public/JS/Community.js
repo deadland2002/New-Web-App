@@ -53,14 +53,35 @@ async function purchase(category, id, cost) {
     }, 3000);
 }
 
-function CopyRefer(code){
+function CopyRefer(code) {
     navigator.clipboard.writeText(code);
     const btn_cpy = document.getElementById('copy');
     btn_cpy.innerText = "Copied";
     btn_cpy.style.backgroundColor = "rgb(34, 168, 0)";
 }
 
-function logout(){
+function logout() {
     localStorage.removeItem('token');
     location.href = "/";
+}
+
+
+function addpost() {
+    const post_div = document.getElementById('addpostdiv');
+    const home_div = document.getElementById('home-bg');
+
+    post_div.style.display = "flex";
+    home_div.style.maxHeight = "100vh";
+
+
+}
+
+function closeaddpost(){
+    const post_div = document.getElementById('addpostdiv');
+    const home_div = document.getElementById('home-bg');
+
+    post_div.style.display = "none";
+    home_div.style.maxHeight = "100%";
+
+    
 }

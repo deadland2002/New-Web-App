@@ -26,6 +26,8 @@
         <span>Loading , Please Wait</span>
     </div>
 
+
+
     <div class="home-bg" id="home-bg">
         <div class="wrapper">
             <div class="nav-top">
@@ -34,6 +36,7 @@
                 </ul>
 
                 <input type="text" value="<%=user_email%>" style="display: none;" id="email">
+
                 <div>
                     <span>Refer and earn 20 coins : </span>
                     <button onclick="CopyRefer('<%= refercode %>')" class="copy btn" id="copy">Copy</button>
@@ -42,12 +45,20 @@
                 <div>
                     <button class="btn" id="logout" onclick="logout()">Logout</button>
                 </div>
-                
+
+                <div>
+                    <button class="btn" id="addpost" onclick="addpost()">Add Post</button>
+                </div>
+
                 <ul class="right-nav-ul">
                     <li><img src="/img/user1.png" alt="" width="20px" class="profile"></li>
-                    <li> <span id="username"> <%= name %> </span> </li>
+                    <li> <span id="username">
+                            <%= name %>
+                        </span> </li>
                     <li><img src="/img/currency.png" alt="" width="20px" class="coins"> </li>
-                    <li> <span id="coins"> <%= coins %> </span></li>
+                    <li> <span id="coins">
+                            <%= coins %>
+                        </span></li>
                 </ul>
             </div>
 
@@ -58,7 +69,9 @@
                 <% for (var i in data){ %>
                     <div class="cards" id="<%= i %>">
                         <div class="li-heading">
-                            <span><%= i %></span>
+                            <span>
+                                <%= i %>
+                            </span>
                             <br>
                             <br>
                         </div>
@@ -84,36 +97,83 @@
                                             </div>
                                         </div>
                                     </li>
-                                <% } else { %>
+                                    <% } else { %>
                                         <li>
                                             <div class="li-top">
                                                 <%= data[i][j][3] %>
                                             </div>
                                             <div class="li-bottom-locked">
-                                                <img src="/img/lock.png" alt="" width="20px" class="lock-png" onclick=" purchase('<%= i %>','<%= j %>','<%= data[i][j][1] %>') ">
+                                                <img src="/img/lock.png" alt="" width="20px" class="lock-png"
+                                                    onclick=" purchase('<%= i %>','<%= j %>','<%= data[i][j][1] %>') ">
                                                 <div>
                                                     <img src="/img/currency.png" alt="" width="20px" class="coins">
                                                     <%= data[i][j][1] %>
                                                 </div>
                                             </div>
                                         </li>
-                                <% } %>
-                            <% } %>
+                                        <% } %>
+                                            <% } %>
                         </ul>
                     </div>
-                <% } %>
+                    <% } %>
 
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
 
 
 
             </div>
+
+
+
+
+            <div class="addpost" id="addpostdiv">
+                <div class="postcontent">
+                    <div class="heading">
+                        <span> Add Post Request </span>
+                        <button class="close" onclick="closeaddpost()"> x </button>
+                    </div>
+                    <div class="mid-post">
+                        <form id="form">
+
+                            <div>
+                                <span> Category </span>
+                                <select name="Category" id="category">
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Frontend">Frontend</option>
+                                    <option value="Backend">Backend</option>
+                                    <option value="Full Stack">Full Stack</option>
+                                    <option value="AI">AI</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span>Title</span>
+                                <input type="text" class="inp-post" id="title" maxlength="50">
+                            </div>
+                            <div>
+                                <span>Content</span>
+                                <textarea name="content" id="content" cols="60" rows="5" maxlength="1000"></textarea>
+                            </div>
+                            <div>
+                                <span> coin </span>
+                                <input type="number" name="coin" id="coin" required>
+                            </div>
+                            <div>
+                                <button class="btn-add" type="submit">Submit</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
 
@@ -121,7 +181,7 @@
         <div class="success-msg">
             <div class="top">
                 <h2 id="result-purchase">
-                    
+
                 </h2>
             </div>
         </div>
@@ -129,7 +189,43 @@
 
 
     <script src="/JS/Community.js">
-        
+
+    </script>
+    <script>
+        const form = document.getElementById('form');
+        form.addEventListener('submit', sendform);
+
+        async function sendform() {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const coin = document.getElementById('coin').value;
+            const category = document.getElementById('category').value;
+            const email = document.getElementById('email').value;
+
+            var obj;
+
+            const result = await fetch("/api/addpost", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    category,
+                    title,
+                    content,
+                    coin,
+                    email
+                })
+            }).then(res => res.json()).then(data => { obj = data; });
+
+            if (obj.status === "OK") {
+                alert("Submitted successfully");
+                location.reload();
+            } else {
+                alert(obj.data);
+            }
+        };
     </script>
 </body>
 

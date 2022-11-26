@@ -10,39 +10,40 @@
     color: rgb(255, 255, 255);
 }
 
-:root{
-    --buttom-bg : #1E1E1E;
-    --nav-color:rgba(14, 13, 15, 0.866);
-    --coin-bg:rgb(255, 140, 0);
-    --purple:#5A01A0;
+:root {
+    --buttom-bg: #1E1E1E;
+    --nav-color: rgba(14, 13, 15, 0.866);
+    --coin-bg: rgb(255, 140, 0);
+    --purple: #5A01A0;
 }
 
-ul{
+ul {
     list-style-type: none;
     text-decoration: none;
 }
 
-input:focus{
+input:focus {
     outline: none;
 }
 
-input{
+input {
     outline: none;
 }
 
-.preloader{
+.preloader {
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.preloader-wrapper{
+
+.preloader-wrapper {
     width: 400px;
     margin: auto auto;
 }
 
-.preloader span{
+.preloader span {
     position: absolute;
     z-index: 1000;
     left: 50%;
@@ -51,14 +52,17 @@ input{
     font-size: 34px;
 }
 
-.home-bg{
+.home-bg {
+    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 39%, #FFCC70 74%, #ffffff 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
     min-height: 100vh;
     display: none;
-    background-color: rgba(0, 0, 0,.8);
+    overflow: hidden;
 }
 
-.nav-top{
+.nav-top {
     background-color: var(--nav-color);
     position: fixed;
     display: flex;
@@ -69,19 +73,19 @@ input{
     backdrop-filter: blur(10px);
 }
 
-.nav-top ul li{
+.nav-top ul li {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.profile{
+.profile {
     background-color: aliceblue;
     padding: 5px 5px;
     border-radius: 50%;
 }
 
-.right-nav-ul{
+.right-nav-ul {
     display: flex;
     list-style-type: none;
     margin: 2px 30px;
@@ -89,7 +93,7 @@ input{
     gap: 10px;
 }
 
-.left-nav-ul{
+.left-nav-ul {
     display: flex;
     list-style-type: none;
     margin: 2px 10px;
@@ -97,7 +101,7 @@ input{
     gap: 10px;
 }
 
-.coins{
+.coins {
     background-color: var(--coin-bg);
     padding: 5px 5px;
     border-radius: 50%;
@@ -110,43 +114,45 @@ input{
     gap: 60px;
 }
 
-.main-content ul{
+.main-content ul {
     display: flex;
-    justify-content: space-around;
+    justify-content: start;
     align-items: center;
     flex-wrap: wrap;
-    gap: 60px;
+    gap: 30px;
 }
 
-.main-content ul li{
+.main-content ul li {
+    max-width: 300px;
     width: 250px;
     height: 200px;
     background-color: rgba(34, 34, 34, 0.658);
     border-radius: 20px;
-    box-shadow: 10px 10px 30px rgb(0, 0, 0);
+    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.355);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    flex: 1 1 200px;
 }
 
-.wrapper{
+.wrapper {
     width: 100%;
 }
 
-.cards{
+.cards {
     width: 80%;
     margin: auto auto;
     padding: 0px 60px;
     padding-top: 30px;
     padding-bottom: 50px;
-    background-color: rgba(0, 0, 0, .4);
+    background-color: rgba(0, 0, 0, 0.288);
     border-radius: 20px;
     box-shadow: 5px 5px 20px rgba(255, 255, 255, 0.674);
 }
 
-.li-bottom-locked{
-    max-width: 250px;
+.li-bottom-locked {
+    max-width: 100%;
     background-color: var(--purple);
     height: 50px;
     border-bottom: 20px;
@@ -156,14 +162,14 @@ input{
     padding: 0px 10px;
 }
 
-.li-bottom-locked div{
+.li-bottom-locked div {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.li-top{
+.li-top {
     min-width: 80%;
     max-width: 100%;
     max-height: 140px;
@@ -171,7 +177,7 @@ input{
     padding: 10px 20px;
 }
 
-.li-bottom-unlocked{
+.li-bottom-unlocked {
     max-width: 250px;
     background-color: rgba(0, 255, 51, 0.6);
     height: 50px;
@@ -183,19 +189,19 @@ input{
     font-weight: bolder;
 }
 
-.li-heading{
+.li-heading {
     letter-spacing: 2px;
     font-size: 24px;
 }
 
-.lock-png{
+.lock-png {
     background-color: aliceblue;
     padding: 5px 5px;
     border-radius: 50%;
     cursor: pointer;
 }
 
-.success{
+.success {
     width: 100%;
     height: 100vh;
     position: absolute;
@@ -209,7 +215,7 @@ input{
     backdrop-filter: blur(5px);
 }
 
-.success-msg{
+.success-msg {
     width: 500px;
     height: 400px;
     background-color: #5A01A0;
@@ -221,23 +227,23 @@ input{
     gap: 30px;
 }
 
-.success-msg h2{
+.success-msg h2 {
     font-size: 38px;
 }
 
-.success-msg span{
+.success-msg span {
     font-size: 24px;
 }
 
-.test{
+.test {
     color: rgb(34, 168, 0);
 }
 
-.flip-card{
+.flip-card {
     display: none;
 }
 
-.show-card{
+.show-card {
     display: flex;
     justify-content: space-between;
     height: 100%;
@@ -263,63 +269,152 @@ input{
     background-color: transparent;
     width: 300px;
     height: 200px;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-  }
-  
-  /* This container is needed to position the front and back side */
-  .flip-card-inner {
+    perspective: 1000px;
+    /* Remove this if you don't want the 3D effect */
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-  }
-  
-  /* Do an horizontal flip when you move the mouse over the flip box container */
-  .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
+}
 
-  .flip-card:hover .flip-card {
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card:hover .flip-card {
     display: flex;
     padding: 10px 20px;
-  }
+}
 
 
-  .flip-back-content{
+.flip-back-content {
     width: 210px;
     text-align: left;
-  }
-  
-  /* Position the front and back side */
-  .flip-card-front, .flip-card-back {
+}
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    -webkit-backface-visibility: hidden; /* Safari */
+    -webkit-backface-visibility: hidden;
+    /* Safari */
     backface-visibility: hidden;
-  }
-  
-  /* Style the front side (fallback if image is missing) */
-  .flip-card-front {
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
     color: black;
-  }
-  
-  /* Style the back side */
-  .flip-card-back {
-    background-color: rgba(50, 50, 50, 0.658);;
+}
+
+/* Style the back side */
+.flip-card-back {
+    background-color: rgba(50, 50, 50, 0.658);
+    ;
     color: white;
     transform: rotateY(180deg);
-  }
+}
 
-  .copy  , .btn{
+.copy,
+.btn {
     padding: 2px 5px;
     border-radius: 20px;
     background-color: #5A01A0;
-  }
+    border: 0;
+}
 
-  
+.addpost {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .4);
+    backdrop-filter: blur(5px);
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.postcontent {
+    position: relative;
+    min-width: 400px;
+    width: 400px;
+    height: 80%;
+    background-color: #5b01a0;
+    padding: 40px 40px;
+    border-radius: 20px;
+}
+
+.heading{
+    font-size: 32px;
+    text-align: center;
+}
+
+.mid-post{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mid-post input{
+    padding: 5px 10px;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid white;
+}
+
+.mid-post textarea{
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.648);
+    border: 2px solid black;
+    color: #1E1E1E;
+    resize: none;
+}
+
+.mid-post div{
+    display: flex;
+    flex-direction: column;
+}
+
+.close{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border: 0;
+    background-color: rgb(255, 0, 0);
+}
+
+.mid-post select{
+    background-color: transparent;
+}
+
+.mid-post option{
+    background-color: rgba(0, 0, 0, 0.647);
+}
+
+.mid-post button{
+    margin-top: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.355);
+    border: 0;
+    border-radius: 20px;
+}

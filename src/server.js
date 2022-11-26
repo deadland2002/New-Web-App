@@ -12,6 +12,7 @@ const salts = 10;
 const USER = require('../model/user')
 const OTP = require('../model/Otp')
 const ALLPOST = require('../model/allpost')
+const ALLREQUEST = require('../model/Requests')
 const community = require('../function/community')
 
 
@@ -52,7 +53,7 @@ app.get("/forget-password", function (req, res) {
 
 
 
-app.get("/Sign-Up/",async function (req, res) {
+app.get("/Sign-Up/", async function (req, res) {
     res.render("Sign-Up")
 })
 
@@ -95,27 +96,27 @@ app.get("/Community/:token", async function (req, res) {
                 var content = vals.content;
                 var cost = vals.cost;
                 var id = vals._id;
-                arr = ComHelper.PushPostData(arr,category,id,cost,content,title);
-                
+                arr = ComHelper.PushPostData(arr, category, id, cost, content, title);
+
             })
         })
 
-        
+
         const user_name = user_data.name;
         const coin = helper.formatter(user_data.coins, 1);
         const subs = user_data.subs;
         const email = vals.email;
-        
-        
+
+
         subs.forEach(async function (single) {
             user = ComHelper.PushUserData(user, single.category, single.id);
         });
-        
-        arr = ComHelper.ValidateData(user, arr);
-        
 
-        const tokenrefer = await JWT.sign(email,JWTSEC);
-        return res.render("community", { data: arr, name: user_name, coins: coin, user_email: email , refercode:tokenrefer});
+        arr = ComHelper.ValidateData(user, arr);
+
+
+        const tokenrefer = await JWT.sign(email, JWTSEC);
+        return res.render("community", { data: arr, name: user_name, coins: coin, user_email: email, refercode: tokenrefer });
     }
     res.send("Opssssss look like the resource you are looking for is not here<script>localStorage.removeItem('token');</script>");
 
@@ -139,6 +140,41 @@ app.get("/VerifyAccount", async function (req, res) {
 
 
 
+app.get("/admin/requests/:password", async function (req, res) {
+
+    const pass = req.params['password'];
+
+    if (pass == process.env.ADMINPASS) {
+        const result = await ALLREQUEST.find({});
+
+        var arr = {};
+        result.forEach((single) => {
+            var category = single.category
+            var data = single.data;
+            data.forEach((vals) => {
+                var email = vals.email;
+                var title = vals.title;
+                var content = vals.content;
+                var cost = vals.cost;
+                var id = vals._id;
+                arr = ComHelper.PushRequest(arr, category, id, cost, content, title, email);
+
+            })
+        });
+
+
+        return res.render('request', { data: arr });
+    }else{
+        res.redirect('/');
+    }
+
+
+})
+
+
+
+
+
 app.get("/AddPost", async function (req, res) {
     res.render('AddPost');
 })
@@ -149,8 +185,11 @@ app.get("/AddPost", async function (req, res) {
 
 
 app.get("/test", async function (req, res) {
-    const user = await JWT.sign("satvikshukla453@gmail.com",JWTSEC);
-    console.log(user);
+
+    const requests = await ALLREQUEST.find().lean();
+
+    console.log(requests);
+
     res.send('OK');
 })
 
@@ -161,26 +200,70 @@ app.get("/test", async function (req, res) {
 
 
 
-app.post("/api/addpost", async function (req, res) {
+app.post("/api/adminpost", async function (req, res) {
     // console.log(req.body);
-    const { category, title, content, coin, adminpass } = req.body;
+    const { id, category, title, content, coin, email ,opr } = req.body;
 
-    if (adminpass === process.env.ADMINPASS) {
+    if (opr) {
         try {
             const result = await ALLPOST.findOne({ category });
 
             if (result) {
-                const res = await ALLPOST.updateOne({ category: category},{ $push: { data: { title: title, content: content, cost: coin } } });
+                const res = await ALLPOST.updateOne({ category: category }, { $push: { data: { title: title, content: content, cost: coin } } });
             } else {
                 const res = await ALLPOST.create({ category: category, data: { title: title, content: content, cost: coin } });
             }
+
+            try{
+                const user = await USER.updateOne({email},{$inc:{coins:30}});
+            }catch(err){
+                console.log(err);
+            }
+
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             return res.json({ status: "err", data: "error while processing" })
         }
-    } else {
-        return res.json({ status: "err", data: "invalid password" })
     }
+
+
+    try {
+        const result1 = await ALLREQUEST.updateOne({ category: category }, { $pull: { data: { _id: id } } }).lean();
+        // console.log(result1);
+    } catch (err) {
+        console.log(err);
+    }
+
+
+    res.json({ status: "OK" });
+});
+
+
+
+
+
+
+
+
+
+app.post("/api/addpost", async function (req, res) {
+    // console.log(req.body);
+    const { category, title, content, coin, email } = req.body;
+
+
+    try {
+        const result = await ALLREQUEST.findOne({ category });
+
+        if (result) {
+            const res = await ALLREQUEST.updateOne({ category: category }, { $push: { data: { email: email, title: title, content: content, cost: coin } } });
+        } else {
+            const res = await ALLREQUEST.create({ category: category, data: { email: email, title: title, content: content, cost: coin } });
+        }
+    } catch (err) {
+        console.log(err);
+        return res.json({ status: "err", data: "error while processing" })
+    }
+
 
     res.json({ status: "OK" });
 });
@@ -244,20 +327,20 @@ function containsAlpha(str) {
 
 app.post("/api/signup", async function (req, res) {
     var f = 0;
-    const { fullname, email, password , referer:refercode} = req.body;
+    const { fullname, email, password, referer: refercode } = req.body;
     // console.log(req.body);
     var referer = undefined;
 
-    if(refercode.length>1){
-        try{
-            const token2 = await JWT.verify(refercode,JWTSEC);
+    if (refercode.length > 1) {
+        try {
+            const token2 = await JWT.verify(refercode, JWTSEC);
             referer = token2;
-        }catch{
+        } catch {
             return res.json({ status: "error", data: "Refer code not valid" });
         }
     }
 
-    
+
     if (password.length < 5) {
         return res.json({ status: "error", data: "Password Length less than 5 characters" });
     }
@@ -284,10 +367,10 @@ app.post("/api/signup", async function (req, res) {
                 coins: 100,
                 PermaBan: false
             });
-            if(referer){
-                try{
-                    var ref = await USER.updateOne({email:referer},{$inc:{coins:20,refers:1}}).lean();
-                }catch{
+            if (referer) {
+                try {
+                    var ref = await USER.updateOne({ email: referer }, { $inc: { coins: 20, refers: 1 } }).lean();
+                } catch {
                     // console.log(referer);
                 }
             }

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .bg{
+            width: 100%;
+            height: 100vh;
+        }
+
+        .card-holder{
+            padding: 10px 20px;
+            list-style-type: none;
+            display: flex;
+            gap: 50px;
+        }
+
+        .card{
+            padding: 10px 20px;
+            width: max-content;
+            box-shadow: 0px 0px 10px rgb(198, 198, 198);
+            border-radius: 20px;
+        }
+
+        .card{
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+        }
+
+        .control{
+            display: flex;
+            gap: 40px;
+        }
+
+        .control button{
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 20px;
+            border: 0;
+        }
+
+        .control button:nth-child(1){
+            background-color: rgb(55, 255, 0);
+        }
+
+        .control button:nth-child(2){
+            background-color: rgb(255, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <center> <h1>Hi Admin'',</h1></center>
+        <ul class="card-holder" id="">
+            <% for (var i in data){ %>
+                <% for (var j in data[i]){ %>
+                    <li class="card">
+                        <div>
+                            <span>Heading :</span>
+                            <span><%= i %></span>
+                        </div>
+                        <div>
+                            <span>Title :</span>
+                            <span><%= data[i][j][3] %> </span>
+                        </div>
+                        <div>
+                            <span>Email :</span>
+                            <span><%= data[i][j][4] %> </span>
+                        </div>
+                        <div>
+                            <span>Content :</span>
+                            <span><%= data[i][j][2] %></span>
+                        </div>
+                        <div>
+                            <span>Coin :</span>
+                            <span><%= data[i][j][1] %></span>
+                        </div>
+                        <div>
+                            <span>ID :</span>
+                            <span><%= j %></span>
+                        </div>
+                        <div class="control">
+                            <button onclick="accept('<%= j %>','<%= i %>','<%= data[i][j][3] %>','<%= data[i][j][2] %>','<%= data[i][j][1] %>','<%= data[i][j][4] %>',true)">Accept</button>
+                            <button onclick="accept('<%= j %>','<%= i %>','<%= data[i][j][3] %>','<%= data[i][j][2] %>','<%= data[i][j][1] %>','<%= data[i][j][4] %>',false)">Reject</button>
+                        </div>
+                    </li>
+                <% } %>
+            <% } %>
+        </ul>
+    </div>
+    <script src="/JS/requests.js"></script>
+</body>
+
+</html>

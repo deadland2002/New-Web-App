@@ -61,5 +61,18 @@ module.exports = {
         }
         
         return posts;
-    }
+    },
+    PushRequest : function(posts ,  category , id , coin , content , title , email){
+        var temp = [false,coin,content,title,email];
+
+        if (category in posts){
+            posts[category][id] = temp;
+        }
+        else{
+            posts[category] = {};
+            posts[category][id] = temp;
+        }
+        
+        return posts;
+    },
 }

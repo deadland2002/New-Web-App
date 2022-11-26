@@ -110,11 +110,7 @@
             </div>
             <div class="inp">
                 <span> coin </span>
-                <input type="number" name="Title" id="coin" required>
-            </div>
-            <div class="inp">
-                <span> Admin Pass </span>
-                <input type="text" name="Title" id="adminpass" required>
+                <input type="number" name="coin" id="coin" required>
             </div>
             <div class="btn">
                 <button>Submit</button>
@@ -133,7 +129,6 @@
             const content = document.getElementById('content').value;
             const coin = document.getElementById('coin').value;
             const category = document.getElementById('Category').value;
-            const adminpass = document.getElementById('adminpass').value;
 
             var obj;
 
@@ -146,8 +141,7 @@
                     category,
                     title,
                     content,
-                    coin,
-                    adminpass
+                    coin
                 })
             }).then(res => res.json()).then(data=>{obj = data;});
 
