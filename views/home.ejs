@@ -45,7 +45,12 @@
     </div>
 
     <script src="/JS/Home.js"></script>
-    <script>  
+    <script>
+        const token = localStorage.getItem('token');
+        if(token){
+            console.log(token);
+            location.href="/Community/"+token;
+        }   
     </script>
 </body>
 
