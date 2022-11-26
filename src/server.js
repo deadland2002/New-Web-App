@@ -281,7 +281,8 @@ app.post("/api/signup", async function (req, res) {
                 name: fullname,
                 password: hashedpassword,
                 verified: false,
-                coins: 100
+                coins: 100,
+                PermaBan: false
             });
             if(referer){
                 try{
@@ -388,7 +389,7 @@ app.post("/api/signin", async function (req, res) {
                 return res.json({ status: "OK", data: "OTP SENT" });
             }
 
-            if (result.verified == true) {
+            if (result.verified == true && result.PermaBan == false) {
 
                 const data = {
                     email: email,

@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     password: { type: String, required: true },
     verified: { type: Boolean, required: true },
+    PermaBan: { type: Boolean, required: true },
     coins: { type: Number, "default": 0 },
     refers: { type: Number, "default": 0 },
     subs: [
