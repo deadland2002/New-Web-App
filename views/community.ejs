@@ -66,6 +66,80 @@
 
 
 
+
+
+                
+                    <div class="cards">
+                        <div class="li-heading">
+                            <span>
+                                Featured
+                            </span>
+                            <br>
+                            <br>
+                        </div>
+                        <ul>
+                            <% for (var i = 0 ; i < top_search.length ; i++){ %>
+                                <% if (top_search[i][0]===true){ %>
+                                    <li class="">
+                                        
+                                                <div class="li-top">
+                                                    <%= top_search[i][3] %>
+                                                </div>
+                                                <div class="li-bottom-unlocked" onclick="showpost('<%=top_search[i][5]%>')">
+                                                    UNLOCKED
+                                                </div>
+                                            
+                                            <div class="content" id="<%=top_search[i][5]%>">
+                                                <button onclick="closediv('<%=top_search[i][5]%>')" class="post_close">x</button>
+                                                <div class="content-sub">
+                                                    <div class="">
+                                                        <span>Title : </span>
+                                                        <br>
+                                                        <span><%= top_search[i][3] %></span>
+                                                    </div>
+                                                    <div class="">
+                                                        <br>
+                                                        <span>Ans :</span>
+                                                        <br>
+                                                        <span> <%= top_search[i][2] %> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                    </li>
+                                    <% } else { %>
+                                        <li>
+                                            <div class="li-top">
+                                                <%= top_search[i][3] %>
+                                            </div>
+                                            <div class="li-bottom-locked">
+                                                <img src="/img/lock.png" alt="" width="20px" class="lock-png"
+                                                    onclick=" purchase('<%= top_search[i][6] %>','<%= top_search[i][5] %>','<%= top_search[i][1] %>') ">
+                                                <div>
+                                                    <img src="/img/currency.png" alt="" width="20px" class="coins">
+                                                    <%= top_search[i][1] %>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <% } %>
+                                        <% } %>
+                        </ul>
+                    </div>
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <% for (var i in data){ %>
                     <div class="cards" id="<%= i %>">
                         <div class="li-heading">

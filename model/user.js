@@ -13,6 +13,12 @@ const UserSchema = new mongoose.Schema({
             category : { type: String},
             id : { type: String}
         }
+    ],
+    created: [
+        {
+            category : { type: String},
+            id : { type: String}
+        }
     ]
 }, { collection: 'users' })
 

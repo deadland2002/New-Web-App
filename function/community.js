@@ -49,8 +49,8 @@ module.exports = {
         }
         return userdata;
     },
-    PushPostData: function(posts ,  category , id , coin , content , title){
-        var temp = [false,coin,content,title];
+    PushPostData: function(posts ,  category , id , coin , content , title , buys){
+        var temp = [false,coin,content,title,buys,id,category];
 
         if (category in posts){
             posts[category][id] = temp;

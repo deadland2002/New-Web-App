@@ -53,7 +53,7 @@ input {
 }
 
 .home-bg {
-    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 39%, #FFCC70 74%, #ffffff 100%);
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
@@ -124,12 +124,12 @@ input {
 }
 
 .main-content ul li {
-    max-width: 300px;
+    max-width: 220px;
     width: 250px;
     height: 200px;
     background-color: rgba(34, 34, 34, 0.658);
     border-radius: 20px;
-    box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.355);
+    /* box-shadow: 10px 10px 20px rgba(255, 255, 255, 0.355); */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

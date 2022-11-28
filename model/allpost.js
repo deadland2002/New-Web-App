@@ -6,6 +6,7 @@ const PostSchema = new mongoose.Schema({
         title : {type: String},
         content : {type: String},
         cost : {type: Number},
+        buys : {type: Number,default:0}
     }]
 }, { collection: 'Posts' })
 

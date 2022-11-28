@@ -96,8 +96,8 @@ app.get("/Community/:token", async function (req, res) {
                 var content = vals.content;
                 var cost = vals.cost;
                 var id = vals._id;
-                arr = ComHelper.PushPostData(arr, category, id, cost, content, title);
-
+                var buys = vals.buys;
+                arr = ComHelper.PushPostData(arr, category, id, cost, content, title ,buys);
             })
         })
 
@@ -114,9 +114,33 @@ app.get("/Community/:token", async function (req, res) {
 
         arr = ComHelper.ValidateData(user, arr);
 
-        // console.log(arr);
+        var all = [];
+
+        for (var i in arr){
+            var data = arr[i];
+            for (var j in data){
+                all.push(data[j]);
+            }
+        }
+
+        const compare = ( a, b ) => {
+            if ( a[4] < b[4] ){
+              return 1;
+            }
+            if ( a[4] > b[4] ){
+              return -1;
+            }
+            return 0;
+          }
+
+
+        all = all.sort(compare).slice(0,5);
+
+
         const tokenrefer = await JWT.sign(email, JWTSEC);
-        return res.render("community", { data: arr, name: user_name, coins: coin, user_email: email, refercode: tokenrefer });
+
+
+        return res.render("community", { data: arr, name: user_name, coins: coin, user_email: email, refercode: tokenrefer , top_search : all});
     }
     res.send("Opssssss look like the resource you are looking for is not here<script>localStorage.removeItem('token');</script>");
 
@@ -186,10 +210,9 @@ app.get("/AddPost", async function (req, res) {
 
 app.get("/test", async function (req, res) {
 
-    const requests = await ALLREQUEST.findOne({category:'Marketing'}).lean();
-    const data = requests.data;
+    const test = await ALLPOST.find();
     
-    console.log(data[0]['_id']);
+    console.log(test);
 
     res.send('OK');
 })
@@ -298,6 +321,8 @@ app.post("/api/addid", async function (req, res) {
                     },
                     $inc: { coins: value }
                 }).lean();
+
+                const buys = await ALLPOST.updateOne({category , 'data._id':id } , { $inc:{'data.$.buys':1} } );
         }
         else {
             return res.json({ status: 'error', data: "1800" });
